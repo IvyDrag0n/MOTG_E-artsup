@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LookBack",
+                    "type": "Button",
+                    "id": "c10c1179-26cd-4f7b-9bde-accbf06b9d27",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -95,7 +104,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
+                    "name": "negative",
                     "id": "5c1e43f4-b5c9-4946-b35c-f80c9c9dc0a5",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -106,7 +115,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
+                    "name": "positive",
                     "id": "007f09fb-667c-4920-a08c-a7292e29eb74",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -278,6 +287,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26da9160-cba8-4c73-940a-a00338497eea",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a27f8c3b-de4c-4baf-85a7-a1761b08aa6b",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookBack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

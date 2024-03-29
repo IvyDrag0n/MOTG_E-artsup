@@ -32,6 +32,8 @@ public class SC_PlayerController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera tpsCam;
 
     [SerializeField] private CinemachineVirtualCamera fpsCam;
+
+    [SerializeField] private CinemachineVirtualCamera backCam;
     
     //Declaring Camera movement variables
 
@@ -49,7 +51,9 @@ public class SC_PlayerController : MonoBehaviour
 
     private float _currentAngleY;
 
-    private float _currentAngleX;
+    private float _currentAngleZ;
+
+    private bool _isFront = true;
     
     //Declaring variables related to projectile handling
 
@@ -57,6 +61,8 @@ public class SC_PlayerController : MonoBehaviour
 
     public float health;
     
+    //Declaring Tank variables
+
     
     
     // Start is called before the first frame update
@@ -71,6 +77,7 @@ public class SC_PlayerController : MonoBehaviour
 
         tpsCam.enabled = true;
         fpsCam.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -83,17 +90,17 @@ public class SC_PlayerController : MonoBehaviour
         
         //apply calculated rotation to turret and cannon empty objects within rotation limits
         
-        _currentAngleY = _cannonTransform.localRotation.x * Mathf.Rad2Deg;
-        _currentAngleX = _headTransform.localRotation.y * Mathf.Rad2Deg;
+        _currentAngleY = _cannonTransform.localRotation.y * Mathf.Rad2Deg;
+        _currentAngleZ = _headTransform.localRotation.z * Mathf.Rad2Deg;
         
-        if ((_currentAngleX < 23f && _viewRotation.x > 0) || (_currentAngleX > -23f && _viewRotation.x < 0))
+        if ((_currentAngleZ < 50f && _viewRotation.x < 0) || (_currentAngleZ > -50f && _viewRotation.x > 0))
         {
-            _headTransform.Rotate(Vector3.forward, mouseSensitivityX * _viewRotation.x);
+            _headTransform.Rotate(Vector3.forward, mouseSensitivityX * -_viewRotation.x);
         }
         
-        if ((_currentAngleY < -20f && _viewRotation.y > 0) || (_currentAngleY > -42f && _viewRotation.y < 0))
+        if ((_currentAngleY < 12f && _viewRotation.y < 0) || (_currentAngleY > -17f && _viewRotation.y > 0))
         {
-            _cannonTransform.Rotate(Vector3.left, mouseSensitivityY * -_viewRotation.y);
+            _cannonTransform.Rotate(Vector3.up, mouseSensitivityY * -_viewRotation.y);
         }
     }
 
@@ -123,7 +130,7 @@ public class SC_PlayerController : MonoBehaviour
         {
             GameObject clone = Instantiate(projectile, _cannonEndTransform.position, _cannonEndTransform.rotation);
             Quaternion cloneRotation = clone.transform.rotation;
-            clone.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectilePower, ForceMode.Impulse);
+            clone.GetComponent<Rigidbody>().AddRelativeForce(-projectilePower, 0, 0, ForceMode.Impulse);
             clone.GetComponent<SC_DefaultProjectile>().damage = 100f;
             clone.GetComponent<SC_DefaultProjectile>().isStunning = false;
         }
@@ -136,7 +143,7 @@ public class SC_PlayerController : MonoBehaviour
         {
             GameObject clone = Instantiate(projectile, _cannonEndTransform.position, _cannonEndTransform.rotation);
             Quaternion cloneRotation = clone.transform.rotation;
-            clone.GetComponent<Rigidbody>().AddRelativeForce(0, 0, projectilePower, ForceMode.Impulse);
+            clone.GetComponent<Rigidbody>().AddRelativeForce(-projectilePower, 0, 0, ForceMode.Impulse);
             clone.GetComponent<SC_DefaultProjectile>().damage = 0f;
             clone.GetComponent<SC_DefaultProjectile>().isStunning = true;
         }
@@ -145,16 +152,44 @@ public class SC_PlayerController : MonoBehaviour
     //Aiming
     public void CameraSwitch(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (_isFront)
         {
-            tpsCam.enabled = false;
-            fpsCam.enabled = true;
-        }
+            if (context.started)
+            {
+                tpsCam.enabled = false;
+                fpsCam.enabled = true;
+            }
 
-        if (context.canceled)
+            if (context.canceled)
+            {
+                tpsCam.enabled = true;
+                fpsCam.enabled = false;
+            }
+        }
+    }
+
+    public void FrontBackSwitch(InputAction.CallbackContext context)
+    {
+        if (_isFront)
         {
-            tpsCam.enabled = true;
-            fpsCam.enabled = false;
+            if (context.started)
+            {
+                tpsCam.enabled = false;
+                fpsCam.enabled = false;
+                backCam.enabled = true;
+                _isFront = false;
+            }
+        }
+        else
+        {
+            if (context.canceled)
+            {
+                tpsCam.enabled = true;
+                fpsCam.enabled = false;
+                backCam.enabled = false;
+                _isFront = true;
+
+            }
         }
     }
 }
