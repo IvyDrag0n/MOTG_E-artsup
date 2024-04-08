@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class SC_PlayerController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class SC_PlayerController : MonoBehaviour
     private float _rotationAxis;
     
     private float _thrustAxis;
+
+    private Rigidbody _tankRb;
     
     //Declaring Game Objects
 
@@ -34,12 +37,15 @@ public class SC_PlayerController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera fpsCam;
 
     [SerializeField] private CinemachineVirtualCamera backCam;
+
+    [SerializeField] private GameObject muzzleMain;
+
+    private ParticleSystem muzzleMainVFX;
+
+    [SerializeField] private GameObject projectileOrigin;
+    
     
     //Declaring Camera movement variables
-
-    [SerializeField] private float limitAngleMin;
-
-    [SerializeField] private float limitAngleMax;
 
     public float mouseSensitivityX;
 
@@ -54,6 +60,8 @@ public class SC_PlayerController : MonoBehaviour
     private float _currentAngleZ;
 
     private bool _isFront = true;
+
+    public float maxVelocity;
     
     //Declaring variables related to projectile handling
 
@@ -71,25 +79,39 @@ public class SC_PlayerController : MonoBehaviour
         //Lock and hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        //Get easier access to components
         _headTransform = headController.transform;
         _cannonTransform = cannonController.transform;
         _cannonEndTransform = cannonEnd.transform;
-
+        _tankRb = GetComponent<Rigidbody>();
+        muzzleMainVFX = muzzleMain.GetComponent<ParticleSystem>();
+        if (muzzleMainVFX == null)
+        {
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
+        muzzleMainVFX.Pause();
+        
+        //Setup cameras
         tpsCam.enabled = true;
         fpsCam.enabled = false;
-
+        backCam.enabled = false;
+        
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Apply calculated Movement to body from handlers
         transform.Rotate(new Vector3(0,1,0), rotationSpeed * _rotationAxis);
         Vector3 forwardMovement = new Vector3(0, 0, _thrustAxis);
-        transform.Translate(movementSpeed * Time.deltaTime * forwardMovement);
+        //transform.Translate(movementSpeed * Time.deltaTime * forwardMovement);
+        if (_tankRb.velocity.magnitude < maxVelocity)
+        {
+            _tankRb.AddRelativeForce(Time.deltaTime * movementSpeed * forwardMovement, ForceMode.VelocityChange);
+        }
         
         //apply calculated rotation to turret and cannon empty objects within rotation limits
-        
         _currentAngleY = _cannonTransform.localRotation.y * Mathf.Rad2Deg;
         _currentAngleZ = _headTransform.localRotation.z * Mathf.Rad2Deg;
         
@@ -128,11 +150,12 @@ public class SC_PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            GameObject clone = Instantiate(projectile, _cannonEndTransform.position, _cannonEndTransform.rotation);
+            GameObject clone = Instantiate(projectile, projectileOrigin.transform.position, projectileOrigin.transform.rotation);
             Quaternion cloneRotation = clone.transform.rotation;
             clone.GetComponent<Rigidbody>().AddRelativeForce(-projectilePower, 0, 0, ForceMode.Impulse);
             clone.GetComponent<SC_DefaultProjectile>().damage = 100f;
             clone.GetComponent<SC_DefaultProjectile>().isStunning = false;
+            muzzleMainVFX.Play();
         }
     }
 
