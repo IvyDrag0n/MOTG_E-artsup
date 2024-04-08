@@ -9,14 +9,10 @@ using UnityEngine;
 public class SC_DefaultProjectile : MonoBehaviour
 {
     public float damage;
-
-    public bool isStunning;
     
     [SerializeField] private GameObject explosionTemplate;
     
     private Rigidbody rb;
-
-    private GameObject explosion;
 
     public float timeLimit;
 
@@ -46,7 +42,7 @@ public class SC_DefaultProjectile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        explosion = Instantiate(explosionTemplate, transform.position, quaternion.identity);
+        Instantiate(explosionTemplate, transform.position, quaternion.identity);
         Destroy(gameObject);
         
 

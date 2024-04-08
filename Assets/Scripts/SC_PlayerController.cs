@@ -1,4 +1,8 @@
+using System;
+using System.Runtime.CompilerServices;
 using Cinemachine;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -43,7 +47,10 @@ public class SC_PlayerController : MonoBehaviour
     private ParticleSystem muzzleMainVFX;
 
     [SerializeField] private GameObject projectileOrigin;
-    
+
+    [SerializeField] private GameObject bigExplosion;
+
+    [SerializeField] private GameObject looseScreen;
     
     //Declaring Camera movement variables
 
@@ -68,8 +75,11 @@ public class SC_PlayerController : MonoBehaviour
     public float projectilePower;
 
     public float health;
+
+    [SerializeField] private float explodeForce;
+
+    private bool isAlive;
     
-    //Declaring Tank variables
 
     
     
@@ -79,23 +89,41 @@ public class SC_PlayerController : MonoBehaviour
         //Lock and hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
+        looseScreen.SetActive(false);
+            
         //Get easier access to components
         _headTransform = headController.transform;
         _cannonTransform = cannonController.transform;
         _cannonEndTransform = cannonEnd.transform;
         _tankRb = GetComponent<Rigidbody>();
+        
+        //Initialize cannon vfx
         muzzleMainVFX = muzzleMain.GetComponent<ParticleSystem>();
-        if (muzzleMainVFX == null)
-        {
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        }
         muzzleMainVFX.Pause();
+        
+        //Other Variables
+        isAlive = true;
         
         //Setup cameras
         tpsCam.enabled = true;
         fpsCam.enabled = false;
         backCam.enabled = false;
+        
+    }
+
+    private void Update()
+    {
+        if (isAlive)
+        {
+            if (health == 0)
+            {
+                LooseGame();
+                isAlive = false;
+                looseScreen.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
         
     }
 
@@ -125,7 +153,15 @@ public class SC_PlayerController : MonoBehaviour
             _cannonTransform.Rotate(Vector3.up, mouseSensitivityY * -_viewRotation.y);
         }
     }
+    
+    // Other methods
 
+    private void LooseGame() //SpawnExplosion
+    {
+        Instantiate(bigExplosion, transform.position, quaternion.identity);
+        _tankRb.AddForce(Vector3.up * explodeForce, ForceMode.Impulse);
+    }
+    
  // the following methods are events called by the Input system
  
  //Body Movement
@@ -154,25 +190,10 @@ public class SC_PlayerController : MonoBehaviour
             Quaternion cloneRotation = clone.transform.rotation;
             clone.GetComponent<Rigidbody>().AddRelativeForce(-projectilePower, 0, 0, ForceMode.Impulse);
             clone.GetComponent<SC_DefaultProjectile>().damage = 100f;
-            clone.GetComponent<SC_DefaultProjectile>().isStunning = false;
             muzzleMainVFX.Play();
         }
     }
-
-    
-    public void HandleShootSecondary(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            GameObject clone = Instantiate(projectile, _cannonEndTransform.position, _cannonEndTransform.rotation);
-            Quaternion cloneRotation = clone.transform.rotation;
-            clone.GetComponent<Rigidbody>().AddRelativeForce(-projectilePower, 0, 0, ForceMode.Impulse);
-            clone.GetComponent<SC_DefaultProjectile>().damage = 0f;
-            clone.GetComponent<SC_DefaultProjectile>().isStunning = true;
-        }
-    }
-
-    //Aiming
+    //Changing Camera View
     public void CameraSwitch(InputAction.CallbackContext context)
     {
         if (_isFront)
