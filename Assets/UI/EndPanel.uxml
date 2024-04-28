@@ -8,7 +8,7 @@
                 <ui:Label text="AAAAAA" name="scoreDisplay" style="align-items: center; justify-content: flex-start; align-self: center; -unity-font-definition: url(&apos;project://database/Assets/UI/East%20Border.ttf?fileID=12800000&amp;guid=b53ce478304550d48ab816ce87fe4a47&amp;type=3#East Border&apos;); font-size: 119px; flex-wrap: nowrap; white-space: normal; -unity-text-align: upper-center;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; justify-content: space-evenly; align-items: center; background-color: rgba(0, 0, 0, 0); visibility: visible;">
-                <ui:Button text="DO BETTER" name="retryButton" class="button" />
+                <ui:Button text="DO BETTER" name="retryButton" select-word-by-double-click="true" class="button" />
                 <ui:Button text="GIVE UP" name="giveUpButton" class="button" />
             </ui:VisualElement>
         </ui:VisualElement>

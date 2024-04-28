@@ -73,7 +73,7 @@
                 {
                     "name": "",
                     "id": "67aad62f-5a99-4444-89e4-ada744f07327",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -126,15 +126,37 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "0dbc95ab-30ae-438e-aaa1-eaef6f258f0e",
-                    "path": "<Gamepad>/leftStick/y",
+                    "name": "controller",
+                    "id": "c4f93781-9f86-4709-8cc7-4967aaee4a8d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "736eb00a-453f-4233-b5b0-da263c14ecdf",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c46a429b-849d-4785-8b2b-bb2d070a2a6e",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -260,7 +282,7 @@
                 {
                     "name": "",
                     "id": "b1484349-3972-401e-8f55-991e35efb491",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -294,6 +316,17 @@
                     "name": "",
                     "id": "9c0d059e-73f9-4c10-a4cc-75e326017e15",
                     "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26b97295-797a-41ac-bfe5-9397cb2c1ce4",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

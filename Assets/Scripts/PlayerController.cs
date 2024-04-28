@@ -312,23 +312,25 @@ public class PlayerController : MonoBehaviour
         if (isGrounded) //Can only move if touching the ground
         {
             //Rotate tank depending on the player input
-            transform.Rotate(new Vector3(0,1,0), currentRotationSpeed * _rotationAxis);
-            
+            transform.Rotate(new Vector3(0, 1, 0), currentRotationSpeed * _rotationAxis);
+
             //Move tank depending on player input
             Vector3 forwardMovement = new Vector3(0, 0, _thrustAxis);
             if (_tankRb.velocity.magnitude < currentMaxVelocity) //limit acceleration
             {
-                _tankRb.AddRelativeForce(Time.deltaTime * currentMovementSpeed * forwardMovement, ForceMode.VelocityChange);
+                _tankRb.AddRelativeForce(Time.deltaTime * currentMovementSpeed * forwardMovement,
+                    ForceMode.VelocityChange);
             }
-            
+
             //Change rev sound pitch depending on the input while not boosting
             if (isAlive && !statusBar.isGameOver)
             {
                 normalSpeedRevPitch = Mathf.Abs(_thrustAxis) * 1.2f + 1;
                 engineRev.pitch += (normalSpeedRevPitch - engineRev.pitch) * Time.deltaTime;
             }
+        }
 
-            //Get current rotation of turret and cannon
+        //Get current rotation of turret and cannon
             _currentAngleY = _cannonTransform.localRotation.y * Mathf.Rad2Deg;
             _currentAngleZ = _headTransform.localRotation.z * Mathf.Rad2Deg;
         
@@ -342,8 +344,6 @@ public class PlayerController : MonoBehaviour
             {
                 _cannonTransform.Rotate(Vector3.up, currentMouseSensitivityY * -_viewRotation.y); //Rotate canon
             }
-        }
-        
     }
     
     
