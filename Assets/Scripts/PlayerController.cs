@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
             if (isHurting && !statusBar.isGameOver) //If the player is in the fire, reduce health 
             {
-                health -= .2f;
+                health -= .4f;
                 statusBar.SetHealth(health); // Update health bar
             }
         }
