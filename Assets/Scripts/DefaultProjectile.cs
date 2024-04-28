@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DefaultProjectile : MonoBehaviour
@@ -13,7 +14,7 @@ public class DefaultProjectile : MonoBehaviour
     public float timeLimit; //Maximum time a projectile can exist
 
     private float _lifeTime; //current life time of the bullet
-
+    
     private void Start()
     {
         _lifeTime = 0; //Initialisation 

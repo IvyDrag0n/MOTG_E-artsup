@@ -270,6 +270,7 @@ public class PlayerController : MonoBehaviour
         if (!other.collider.CompareTag("Ground"))
         {
             tankHit.Play(); //Play tank hitting sound when hitting objects
+            
         }
     }
 
