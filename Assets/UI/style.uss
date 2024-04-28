@@ -1,0 +1,83 @@
+.button:hover {
+    -unity-font-definition: url('project://database/Assets/UI/East%20Border.ttf?fileID=12800000&guid=b53ce478304550d48ab816ce87fe4a47&type=3#East Border');
+    font-size: 97px;
+    background-color: rgb(77, 77, 77);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    -unity-text-outline-color: rgba(255, 255, 255, 0);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    visibility: visible;
+    display: flex;
+    opacity: 1;
+    border-left-color: rgb(156, 156, 156);
+    border-right-color: rgb(156, 156, 156);
+    border-top-color: rgb(156, 156, 156);
+    border-bottom-color: rgb(156, 156, 156);
+    -unity-text-outline-width: 0;
+    color: rgb(255, 255, 255);
+}
+
+.button:active {
+    -unity-font-definition: url('project://database/Assets/UI/East%20Border.ttf?fileID=12800000&guid=b53ce478304550d48ab816ce87fe4a47&type=3#East Border');
+    font-size: 97px;
+    background-color: rgb(55, 55, 55);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    -unity-text-outline-color: rgba(255, 255, 255, 0);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    visibility: visible;
+    display: flex;
+    opacity: 1;
+    border-left-color: rgb(128, 128, 128);
+    border-right-color: rgb(128, 128, 128);
+    border-top-color: rgb(128, 128, 128);
+    border-bottom-color: rgb(128, 128, 128);
+    -unity-text-outline-width: 0;
+    color: rgb(255, 255, 255);
+}
+
+.button {
+    -unity-font-definition: url('project://database/Assets/UI/East%20Border.ttf?fileID=12800000&guid=b53ce478304550d48ab816ce87fe4a47&type=3#East Border');
+    font-size: 97px;
+    background-color: rgb(17, 17, 17);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    -unity-text-outline-color: rgba(255, 255, 255, 0);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    visibility: visible;
+    display: flex;
+    opacity: 1;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    color: rgb(255, 255, 255);
+}

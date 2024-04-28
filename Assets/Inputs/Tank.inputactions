@@ -15,15 +15,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot secondary",
-                    "type": "Button",
-                    "id": "36a0c694-72e6-42bb-b622-77e34d15392b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Aim",
                     "type": "Button",
                     "id": "d8516c88-aa84-4427-89c3-14164ce3bdcc",
@@ -63,6 +54,15 @@
                     "name": "LookBack",
                     "type": "Button",
                     "id": "c10c1179-26cd-4f7b-9bde-accbf06b9d27",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "c804c0d8-e3a6-4a18-83b5-fe3d83a837f8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -248,28 +248,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e315f195-145a-43fb-ad4d-efbf0be212e0",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot secondary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "01a482e7-77e1-47f9-a8d4-64f5c06cf056",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot secondary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "80084cad-3cdb-43e7-830d-db487fba3e88",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -309,6 +287,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LookBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c0d059e-73f9-4c10-a4cc-75e326017e15",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

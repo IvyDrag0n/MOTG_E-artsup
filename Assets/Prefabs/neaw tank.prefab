@@ -1148,7 +1148,6 @@ GameObject:
   - component: {fileID: 3114210998108179681}
   - component: {fileID: 5159404209306907358}
   - component: {fileID: 8679692034081198912}
-  - component: {fileID: 807743428041248676}
   m_Layer: 0
   m_Name: neaw tank
   m_TagString: Untagged
@@ -1183,7 +1182,7 @@ Animator:
   m_GameObject: {fileID: 7700113635456024577}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0c2de04ae5761f24c94296a29f9faf74, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1558576177885c45b9468c9d176aa1e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1263,10 +1262,21 @@ MonoBehaviour:
   backCam: {fileID: 0}
   muzzleMain: {fileID: 0}
   projectileOrigin: {fileID: 0}
+  bigExplosion: {fileID: 0}
+  looseScreen: {fileID: 0}
+  endScreen: {fileID: 0}
+  smokeTrails: []
   mouseSensitivityX: 1
   mouseSensitivityY: 1
+  maxVelocity: 0
   projectilePower: 40
   health: 100
+  vigor: 0
+  explodeForce: 0
+  statusBar: {fileID: 0}
+  hud: {fileID: 0}
+  shootCooldown: 0
+  score: 0
 --- !u!114 &5159404209306907358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,22 +1319,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d65c3a13-709f-4635-b0b9-e6128a87c687
     m_ActionName: 'Tank/Shoot Main[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3114210998108179681}
-        m_TargetAssemblyTypeName: SC_PlayerController, Assembly-CSharp
-        m_MethodName: HandleShootSecondary
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 36a0c694-72e6-42bb-b622-77e34d15392b
-    m_ActionName: 'Tank/Shoot secondary[/Mouse/middleButton,/XInputControllerWindows/buttonEast]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3114210998108179681}
@@ -1429,6 +1423,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c10c1179-26cd-4f7b-9bde-accbf06b9d27
     m_ActionName: 'Tank/LookBack[/XInputControllerWindows/rightStickPress,/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c804c0d8-e3a6-4a18-83b5-fe3d83a837f8
+    m_ActionName: 'Tank/Boost[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Tank
@@ -1461,27 +1459,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &807743428041248676
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7700113635456024577}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.7969329, y: 2.093027, z: 4.390236}
-  m_Center: {x: 0, y: 1.0467122, z: -0.3612547}
 --- !u!1 &7753695143945006776
 GameObject:
   m_ObjectHideFlags: 0

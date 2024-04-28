@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 2935555734191514251}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -352,7 +352,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  isStunning: 0
   explosionTemplate: {fileID: 8714244275622671896, guid: abf8d5b763621654486813c5c8af8234,
     type: 3}
   timeLimit: 3

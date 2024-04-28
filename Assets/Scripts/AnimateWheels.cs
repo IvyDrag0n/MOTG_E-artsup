@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.iOS;
 
 public class SimpleControl : MonoBehaviour {
 	
@@ -13,24 +12,30 @@ public class SimpleControl : MonoBehaviour {
 	//all right wheels
     public GameObject[] rightWheels;
 
+    //Left Track
     public GameObject leftTrack;
+    
     private Renderer _leftTrackRenderer;
 
-
+    //Right Track
     public GameObject rightTrack;
+    
     private Renderer _rightTrackRenderer;
 
-
+    //Variables
     public float wheelsSpeed;
+    
     public float tracksSpeed;
 
-    private float _thrustAxis;
-    private float _rotationAxis;
+    private float _thrustAxis; //Player Input
+    
+    private float _rotationAxis; //Player Input
 
     private Vector2 rotationRatio;
 
     private void Start()
     {
+        //Get Track renderers
         _leftTrackRenderer = leftTrack.transform.GetComponent<Renderer>();
         _rightTrackRenderer = rightTrack.transform.GetComponent<Renderer>();
     }
@@ -69,7 +74,7 @@ public class SimpleControl : MonoBehaviour {
     }
 
     //Calculate left and right track/wheel rotation coefficient
-    private Vector2 CalculateRotationRatio(float thrust, float steering)
+    private Vector2 CalculateRotationRatio(float thrust, float steering) 
     {
         float leftSpeed = 0;
         float rightSpeed = 0;
@@ -89,7 +94,7 @@ public class SimpleControl : MonoBehaviour {
         else //This formula calculates the ratio for a composite ratio, with the thrust deciding the positive/negative, and the steering the amount
         {
             leftSpeed = thrust * (.25f * steering + .75f);
-            rightSpeed = thrust * (-.25f * steering + .75f);
+            rightSpeed = thrust * (-.25f * steering + .75f); 
         }
         
         return new Vector2(leftSpeed,rightSpeed);
