@@ -24,6 +24,15 @@ public class PlayerController : MonoBehaviour
         
     [SerializeField] private List<GameObject> smokeTrails; //VFX
 
+    /* Sound Management Variables */
+
+    [SerializeField] private AudioSource engineRev;
+
+    private float normalSpeedRevPitch;
+
+    [SerializeField] private AudioSource tankFire;
+
+    [SerializeField] private AudioSource tankHit;
     
     /* Declaring End Game Variables */
     
@@ -154,6 +163,10 @@ public class PlayerController : MonoBehaviour
         fpsCam.enabled = false;
         backCam.enabled = false;
         
+        //Setup Sound
+        engineRev.pitch = 1;
+        normalSpeedRevPitch = 1f;
+
     }
 
     private void Update()
@@ -181,6 +194,7 @@ public class PlayerController : MonoBehaviour
                 currentRotationSpeed = 0f;
                 currentMouseSensitivityX = 0f;
                 currentMouseSensitivityY = 0f;
+                
             }
 
             if (statusBar.isGameOver) //if the timer has run out, the game ends
@@ -205,6 +219,8 @@ public class PlayerController : MonoBehaviour
                 //Set the speed
                 currentMovementSpeed = movementSpeed;
                 currentMaxVelocity = maxVelocity;
+
+                isBoosting = false;
                 
                 foreach (GameObject trail in smokeTrails) //reset vfx color and size
                 {
@@ -218,12 +234,15 @@ public class PlayerController : MonoBehaviour
             if (isBoosting && vigor > 0) //While the player is boosting, consume vigor
             {
                 vigor -= .5f;
+                engineRev.pitch += (3f - engineRev.pitch) * Time.deltaTime; //The engine smoothly speeds up !
             }
 
             if (!isBoosting && (vigor < 100f)) //While not boosting, restore vigor
             {
                 vigor += .5f;
             }
+            
+            
             
             statusBar.SetVigor(vigor); // Update vigor display
 
@@ -238,9 +257,20 @@ public class PlayerController : MonoBehaviour
         {
             canShoot = true;
         }
+
+        if (!isAlive || statusBar.isGameOver) // When the game is over, the motor should smoothly stop
+        {
+            engineRev.pitch -= engineRev.pitch * Time.deltaTime;
+        }
         
-        
-        
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (!other.collider.CompareTag("Ground"))
+        {
+            tankHit.Play(); //Play tank hitting sound when hitting objects
+        }
     }
 
     private void OnCollisionStay(Collision other)
@@ -289,7 +319,14 @@ public class PlayerController : MonoBehaviour
             {
                 _tankRb.AddRelativeForce(Time.deltaTime * currentMovementSpeed * forwardMovement, ForceMode.VelocityChange);
             }
-        
+            
+            //Change rev sound pitch depending on the input while not boosting
+            if (isAlive && !statusBar.isGameOver)
+            {
+                normalSpeedRevPitch = Mathf.Abs(_thrustAxis) * 1.2f + 1;
+                engineRev.pitch += (normalSpeedRevPitch - engineRev.pitch) * Time.deltaTime;
+            }
+
             //Get current rotation of turret and cannon
             _currentAngleY = _cannonTransform.localRotation.y * Mathf.Rad2Deg;
             _currentAngleZ = _headTransform.localRotation.z * Mathf.Rad2Deg;
@@ -379,6 +416,8 @@ public class PlayerController : MonoBehaviour
             clone.GetComponent<Rigidbody>().AddRelativeForce(-projectilePower, 0, 0, ForceMode.Impulse);
             
             muzzleMainVFX.Play(); // play particles
+
+            tankFire.Play(); //Play firing sound
             
             //Setup cooldown
             canShoot = false;
